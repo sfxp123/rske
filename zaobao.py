@@ -1,3 +1,10 @@
+'''
+定时自定义
+15 7 * * * zaobao.py
+new Env('融科早报');
+'''
+
+
 import requests
 from datetime import datetime, timedelta
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
