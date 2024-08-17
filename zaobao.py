@@ -11,7 +11,7 @@ import base64
 import hashlib
 
 # 企业微信机器人 Webhook URL
-webhook_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=7456d8d8-b35d-4b18-b58c-399e434a8419"  # 替换为你的Webhook URL
+webhook_url = os.environ.get('Webhook_URL')  # 替换为你的Webhook URL
 
 def send_image_to_wechat(image_path, webhook_url):
     with open(image_path, "rb") as image_file:
@@ -154,7 +154,7 @@ def check_and_execute():
         else:
             img = Image.open("local_test_image.jpg")
 
-        overlay = Image.new('RGBA', img.size, (0, 0, 0, 150))
+        overlay = Image.new('RGBA', img.size, (0, 0, 0, 130))
         img_with_overlay = Image.alpha_composite(img.convert('RGBA'), overlay)
 
         margin = 70
