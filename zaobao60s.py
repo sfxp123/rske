@@ -1,6 +1,6 @@
 '''
 定时自定义
-15 7 * * * zaobao.py
+15 7 * * * zaobao60s.py
 new Env('融科早报');
 '''
 
