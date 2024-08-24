@@ -146,36 +146,6 @@ def check_and_execute():
     today_date = datetime.now()
 """
 def check_and_execute():
-    url = "https://api.03c3.cn/api/zb?type=jsonText"
-    response = requests.get(url)
-    data = response.json()
-    #updated = data['data']['updated']
-    max_id = 11
-    font_path = "OPlusSans3-Bold.ttf"  # 定义字体路径
-    font_size = 34  # 定义字体大小
-    font = ImageFont.truetype(font_path, font_size)  # 加载字体
-    max_width = 940  # 设定最大宽度
-    while True:
-        max_id_changed = False  # 追踪 max_id 是否被更改
-        all_lines = []  # 每次循环都要清空
-
-    # 获取当前新闻列表
-        news_list = data['data']['text'][:max_id]
-
-        for news in news_list:
-            news_lines = split_text(news, font, max_width)
-            all_lines.extend(news_lines)  # 累加新闻行数
-
-    # 检查总行数是否超过21行
-        if len(all_lines) > 21:
-            max_id -= 1  # 减少 max_id
-            max_id_changed = True
-        else:
-            break  # 如果 max_id 没有更改，说明所有新闻行数均符合要求
-
-# 最终的 news_list
-    news_list = data['data']['text'][:max_id]
-
     urlimg = "https://api.03c3.cn/api/zb?type=jsonImg"
     response = requests.get(urlimg)
     data = response.json()
@@ -184,9 +154,37 @@ def check_and_execute():
     #updated_date = datetime.fromtimestamp(updated / 1000.0)
     today_date = datetime.now()
 
-
-
     if updated_date.date() == today_date.date():
+        url = "https://api.03c3.cn/api/zb?type=jsonText"
+        response = requests.get(url)
+        data = response.json()
+    #updated = data['data']['updated']
+        max_id = 11
+        font_path = "OPlusSans3-Bold.ttf"  # 定义字体路径
+        font_size = 34  # 定义字体大小
+        font = ImageFont.truetype(font_path, font_size)  # 加载字体
+        max_width = 940  # 设定最大宽度
+        while True:
+            max_id_changed = False  # 追踪 max_id 是否被更改
+            all_lines = []  # 每次循环都要清空
+
+    # 获取当前新闻列表
+            news_list = data['data']['text'][:max_id]
+
+            for news in news_list:
+                news_lines = split_text(news, font, max_width)
+                all_lines.extend(news_lines)  # 累加新闻行数
+
+        # 检查总行数是否超过21行
+            if len(all_lines) > 21:
+                max_id -= 1  # 减少 max_id
+                max_id_changed = True
+            else:
+                break  # 如果 max_id 没有更改，说明所有新闻行数均符合要求
+
+    # 最终的 news_list
+        news_list = data['data']['text'][:max_id]
+
         img_page_url = "https://bz.w3h5.com/img/rand_m"
         img_page_response = requests.get(img_page_url)
         
