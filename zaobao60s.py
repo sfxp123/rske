@@ -85,8 +85,11 @@ def draw_rectangle_with_shadow(img, x, y, width, height, shadow_offset=10, shado
 def get_lunar_date(date):
     d = Lunar.fromDate(date)
     fest_date = d.getFestivals()[:1]
-    festi_date = " ".join(fest_date)
-    lunar_date = d.getMonthInChinese() + "月" + d.getDayInChinese() + " " + festi_date
+    jie_qi = d.getJieQi()
+    date_list = fest_date + [jie_qi]
+    date_list = [x for x in date_list if x]
+    jieqi_list  = "  ".join(date_list)
+    lunar_date = d.getMonthInChinese() + "月" + d.getDayInChinese()  + " " + jieqi_list
     return lunar_date
 
 def trim_text_to_fit(text, max_chars):
